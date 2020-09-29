@@ -4,7 +4,17 @@
  * Depends on bndPlugin property set by settings.gradle.
  * and bnd_* values from gradle.properties.
  */
+plugins {
+  id "org.sonarqube" version "3.0"
+}
 
+sonarqube {
+  properties {
+    property "sonar.projectKey", "Specmate"
+    property "sonar.organization", "qamaramanat"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
+}
 import aQute.lib.io.IO
 
 if (JavaVersion.current().isJava9Compatible()) {
