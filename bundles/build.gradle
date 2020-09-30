@@ -82,3 +82,6 @@ tasks.register('buildscriptDependencies') {
     println buildscript.configurations.classpath.asPath
   }
 }
+plugins {
+  id "org.sonarqube" version "2.7"
+}
