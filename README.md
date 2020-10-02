@@ -1,5 +1,5 @@
 # Specmate
-test test
+Just making a dummy pull requst.
 Specmate is a Web-based Modeling and Test-Generation Tool
 
 ## Setup
