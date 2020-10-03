@@ -1,12 +1,15 @@
 package org.json;
 
+import java.text.ParseException;
+
 /**
  * The JSONException is thrown by the JSON.org classes when things are amiss.
  *
  * @author JSON.org
  * @version 2014-05-03
+ * Updated 2020-10-03 by umma19 to remove run time exception code smell.
  */
-public class JSONException extends RuntimeException {
+public class JSONException extends ParseException {
     private static final long serialVersionUID = 0;
     private Throwable cause;
 
@@ -17,7 +20,7 @@ public class JSONException extends RuntimeException {
      *            Detail about the reason for the exception.
      */
     public JSONException(String message) {
-        super(message);
+        super(message,0);
     }
 
     /**
@@ -25,7 +28,7 @@ public class JSONException extends RuntimeException {
      * @param cause The cause.
      */
     public JSONException(Throwable cause) {
-        super(cause.getMessage());
+        super(cause.getMessage(),0);
         this.cause = cause;
     }
 
