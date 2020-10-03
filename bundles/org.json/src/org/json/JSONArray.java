@@ -84,6 +84,12 @@ public class JSONArray {
      * The arrayList where the JSONArray's properties are kept.
      */
     private final ArrayList<Object> myArrayList;
+    
+    /**
+     * Constant to remove multiple string occurrences code smell.
+     */
+    private static final String JSON_ARRAY_NO_ERR_BEGIN = "JSONArray[";
+    private static final String JSON_ARRAY_NO_ERR_END = "] is not a number.";
 
     /**
      * Construct an empty JSONArray.
@@ -192,7 +198,7 @@ public class JSONArray {
     public Object get(int index) throws JSONException {
         Object object = this.opt(index);
         if (object == null) {
-            throw new JSONException("JSONArray[" + index + "] not found.");
+            throw new JSONException("JSON_ARRAY_NO_ERR_BEGIN" + index + "] not found.");
         }
         return object;
     }
@@ -219,7 +225,7 @@ public class JSONArray {
                         .equalsIgnoreCase("true"))) {
             return true;
         }
-        throw new JSONException("JSONArray[" + index + "] is not a boolean.");
+        throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + "] is not a boolean.");
     }
 
     /**
@@ -238,7 +244,7 @@ public class JSONArray {
             return object instanceof Number ? ((Number) object).doubleValue()
                     : Double.parseDouble((String) object);
         } catch (Exception e) {
-            throw new JSONException("JSONArray[" + index + "] is not a number.");
+            throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + JSON_ARRAY_NO_ERR_END);
         }
     }
 
@@ -257,7 +263,7 @@ public class JSONArray {
             return object instanceof Number ? ((Number) object).intValue()
                     : Integer.parseInt((String) object);
         } catch (Exception e) {
-            throw new JSONException("JSONArray[" + index + "] is not a number.");
+            throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + JSON_ARRAY_NO_ERR_END);
         }
     }
 
@@ -276,7 +282,7 @@ public class JSONArray {
         if (object instanceof JSONArray) {
             return (JSONArray) object;
         }
-        throw new JSONException("JSONArray[" + index + "] is not a JSONArray.");
+        throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + "] is not a JSONArray.");
     }
 
     /**
@@ -294,7 +300,7 @@ public class JSONArray {
         if (object instanceof JSONObject) {
             return (JSONObject) object;
         }
-        throw new JSONException("JSONArray[" + index + "] is not a JSONObject.");
+        throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + "] is not a JSONObject.");
     }
 
     /**
@@ -313,7 +319,7 @@ public class JSONArray {
             return object instanceof Number ? ((Number) object).longValue()
                     : Long.parseLong((String) object);
         } catch (Exception e) {
-            throw new JSONException("JSONArray[" + index + "] is not a number.");
+            throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + JSON_ARRAY_NO_ERR_END);
         }
     }
 
@@ -331,7 +337,7 @@ public class JSONArray {
         if (object instanceof String) {
             return (String) object;
         }
-        throw new JSONException("JSONArray[" + index + "] not a string.");
+        throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + "] not a string.");
     }
 
     /**
@@ -794,7 +800,7 @@ public class JSONArray {
     public JSONArray put(int index, Object value) throws JSONException {
         JSONObject.testValidity(value);
         if (index < 0) {
-            throw new JSONException("JSONArray[" + index + "] not found.");
+            throw new JSONException(JSON_ARRAY_NO_ERR_BEGIN + index + "] not found.");
         }
         if (index < this.length()) {
             this.myArrayList.set(index, value);
