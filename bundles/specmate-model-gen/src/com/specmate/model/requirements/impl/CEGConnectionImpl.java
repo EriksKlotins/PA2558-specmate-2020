@@ -123,10 +123,11 @@ public class CEGConnectionImpl extends IModelConnectionImpl implements CEGConnec
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case RequirementsPackage.CEG_CONNECTION__NEGATE:
-				return isNegate() != NEGATE_EDEFAULT;
+		
+		if (featureID == RequirementsPackage.CEG_CONNECTION__NEGATE){
+			return isNegate() != NEGATE_EDEFAULT;
 		}
+		
 		return super.eIsSet(featureID);
 	}
 

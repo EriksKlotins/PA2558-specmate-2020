@@ -44,6 +44,13 @@ import org.eclipse.emf.internal.cdo.CDOObjectImpl;
  *
  * @generated
  */
+ /* Use of Lazy final(non-constant final variable created with a type-specific default value) * 
+ *source : https://cr.openjdk.java.net/~jrose/draft/lazy-final.html#:~:text=The%20uninitialized%20default%20value%20(null,initialized%20shortly%20it%20is%20created.&text=In%20addition%2C%20the%20language%20does,final%20to%20be%20initialized%20twice. 
+ */
+
+
+// SOURCE_EDEFAULT is a compile time constant hence requires nullability check to verify change.
+
 public class FolderImpl extends CDOObjectImpl implements Folder {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -295,11 +302,11 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BasePackage.FOLDER__TRACES_TO:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
-			case BasePackage.FOLDER__TRACES_FROM:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
+		if (featureID == BasePackage.FOLDER__TRACES_TO){
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
+		}
+		else if (featureID == BasePackage.FOLDER__TRACES_FROM){
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -318,6 +325,8 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 				return ((InternalEList<?>)getTracesTo()).basicRemove(otherEnd, msgs);
 			case BasePackage.FOLDER__TRACES_FROM:
 				return ((InternalEList<?>)getTracesFrom()).basicRemove(otherEnd, msgs);
+			default:
+				break;	
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -348,6 +357,8 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 				return getTracesFrom();
 			case BasePackage.FOLDER__LIBRARY:
 				return isLibrary();
+			default:
+				break;		
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -391,6 +402,8 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 			case BasePackage.FOLDER__LIBRARY:
 				setLibrary((Boolean)newValue);
 				return;
+			default:
+				break;		
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -430,6 +443,8 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 			case BasePackage.FOLDER__LIBRARY:
 				setLibrary(LIBRARY_EDEFAULT);
 				return;
+			default:
+				break;		
 		}
 		super.eUnset(featureID);
 	}
@@ -443,10 +458,13 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasePackage.FOLDER__ID:
+			// ID_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return ID_EDEFAULT == null ? getId() != null : !ID_EDEFAULT.equals(getId());
 			case BasePackage.FOLDER__NAME:
+			// NAME_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
 			case BasePackage.FOLDER__DESCRIPTION:
+			// DESCRIPTION_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
 			case BasePackage.FOLDER__RECYCLED:
 				return isRecycled() != RECYCLED_EDEFAULT;
@@ -472,15 +490,21 @@ public class FolderImpl extends CDOObjectImpl implements Folder {
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == INamed.class) {
-			switch (derivedFeatureID) {
-				case BasePackage.FOLDER__NAME: return BasePackage.INAMED__NAME;
-				default: return -1;
+			
+			if (derivedFeatureID == BasePackage.FOLDER__NAME){
+				 return BasePackage.INAMED__NAME;
+			}
+			else{
+				return -1;
 			}
 		}
 		if (baseClass == IDescribed.class) {
-			switch (derivedFeatureID) {
-				case BasePackage.FOLDER__DESCRIPTION: return BasePackage.IDESCRIBED__DESCRIPTION;
-				default: return -1;
+		
+			if (derivedFeatureID == BasePackage.FOLDER__DESCRIPTION){
+				 return BasePackage.IDESCRIBED__DESCRIPTION;
+			}
+			else{
+				return -1;
 			}
 		}
 		if (baseClass == IRecycled.class) {
