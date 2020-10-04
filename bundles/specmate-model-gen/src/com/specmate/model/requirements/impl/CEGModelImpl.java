@@ -509,15 +509,20 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == INamed.class) {
-			switch (baseFeatureID) {
-				case BasePackage.INAMED__NAME: return RequirementsPackage.CEG_MODEL__NAME;
-				default: return -1;
+			if(baseFeatureID == BasePackage.INAMED__NAME){
+				return RequirementsPackage.CEG_MODEL__NAME;
+			}
+			else
+			{
+				return -1;
 			}
 		}
 		if (baseClass == IDescribed.class) {
-			switch (baseFeatureID) {
-				case BasePackage.IDESCRIBED__DESCRIPTION: return RequirementsPackage.CEG_MODEL__DESCRIPTION;
-				default: return -1;
+			if(baseFeatureID == BasePackage.IDESCRIBED__DESCRIPTION){
+				return RequirementsPackage.CEG_MODEL__DESCRIPTION;
+			}
+			else{
+				return -1;
 			}
 		}
 		if (baseClass == IRecycled.class) {
