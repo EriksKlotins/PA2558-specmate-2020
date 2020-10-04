@@ -59,6 +59,12 @@ import org.eclipse.emf.internal.cdo.CDOObjectImpl;
  *
  * @generated
  */
+ /*
+ /* 
+ *Use of Lazy final(non-constant final variable created with a type-specific default value)	
+ *source:https://cr.openjdk.java.net/~jrose/draft/lazy-final.html#:~:text=The%20uninitialized%20default%20value%20(null,initialized%20shortly%20it%20is%20created.&text=In%20addition%2C%20the%20language%20does,final%20to%20be%20initialized%20twice. 
+ *In this case a final variable is initialized shortly after it is created as for ID_EDEFAULT,NAME_EDEFAULT,DESCRIPTION_EDEFAULT,EXT_ID_EDEFAULT,EXT_ID2_EDEFAULT
+ */
 public class RequirementImpl extends CDOObjectImpl implements Requirement {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -670,11 +676,10 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case RequirementsPackage.REQUIREMENT__TRACES_TO:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
-			case RequirementsPackage.REQUIREMENT__TRACES_FROM:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
+		if(featureID==RequirementsPackage.REQUIREMENT__TRACES_TO){
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
+		}else if(featureID==RequirementsPackage.REQUIREMENT__TRACES_FROM) {
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -686,13 +691,12 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case RequirementsPackage.REQUIREMENT__CONTENTS:
-				return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
-			case RequirementsPackage.REQUIREMENT__TRACES_TO:
-				return ((InternalEList<?>)getTracesTo()).basicRemove(otherEnd, msgs);
-			case RequirementsPackage.REQUIREMENT__TRACES_FROM:
-				return ((InternalEList<?>)getTracesFrom()).basicRemove(otherEnd, msgs);
+		if(featureID==RequirementsPackage.REQUIREMENT__CONTENTS){
+			return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
+		}else if(featureID==RequirementsPackage.REQUIREMENT__TRACES_TO){
+			return ((InternalEList<?>)getTracesTo()).basicRemove(otherEnd, msgs);
+		}else if(featureID==RequirementsPackage.REQUIREMENT__TRACES_FROM){
+			return ((InternalEList<?>)getTracesFrom()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -747,6 +751,8 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 				return isIsRegressionRequirement();
 			case RequirementsPackage.REQUIREMENT__PLATFORM:
 				return getPlatform();
+			default:
+				break;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -826,6 +832,8 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 			case RequirementsPackage.REQUIREMENT__PLATFORM:
 				setPlatform((String)newValue);
 				return;
+			default:
+				break;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -901,6 +909,8 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 			case RequirementsPackage.REQUIREMENT__PLATFORM:
 				setPlatform(PLATFORM_EDEFAULT);
 				return;
+			default:
+				break;
 		}
 		super.eUnset(featureID);
 	}
@@ -914,10 +924,13 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case RequirementsPackage.REQUIREMENT__ID:
+				// ID_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return ID_EDEFAULT == null ? getId() != null : !ID_EDEFAULT.equals(getId());
 			case RequirementsPackage.REQUIREMENT__NAME:
+				// NAME_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
 			case RequirementsPackage.REQUIREMENT__DESCRIPTION:
+				// DESCRIPTION_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
 			case RequirementsPackage.REQUIREMENT__RECYCLED:
 				return isRecycled() != RECYCLED_EDEFAULT;
@@ -930,8 +943,10 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 			case RequirementsPackage.REQUIREMENT__TRACES_FROM:
 				return !getTracesFrom().isEmpty();
 			case RequirementsPackage.REQUIREMENT__EXT_ID:
+				// EXT_ID_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return EXT_ID_EDEFAULT == null ? getExtId() != null : !EXT_ID_EDEFAULT.equals(getExtId());
 			case RequirementsPackage.REQUIREMENT__EXT_ID2:
+				// EXT_ID2_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return EXT_ID2_EDEFAULT == null ? getExtId2() != null : !EXT_ID2_EDEFAULT.equals(getExtId2());
 			case RequirementsPackage.REQUIREMENT__SOURCE:
 				return SOURCE_EDEFAULT == null ? getSource() != null : !SOURCE_EDEFAULT.equals(getSource());
@@ -955,6 +970,8 @@ public class RequirementImpl extends CDOObjectImpl implements Requirement {
 				return isIsRegressionRequirement() != IS_REGRESSION_REQUIREMENT_EDEFAULT;
 			case RequirementsPackage.REQUIREMENT__PLATFORM:
 				return PLATFORM_EDEFAULT == null ? getPlatform() != null : !PLATFORM_EDEFAULT.equals(getPlatform());
+			default:
+				break;
 		}
 		return super.eIsSet(featureID);
 	}
