@@ -1,7 +1,5 @@
-# Specmate
-test test
+# Specmate test test
 Specmate is a Web-based Modeling and Test-Generation Tool
-
 ## Setup
 See [Wiki](https://github.com/qualicen/specmate/wiki/How-to-setup-a-Specmate-development-environment)
 
@@ -16,3 +14,7 @@ Cross-browser Testing Platform and Open Source <3 Provided by [![Sauce Labs](Sau
 [homepage]: https://saucelabs.com
 
 Test line
+
+This is group8 work hello world
+
+
