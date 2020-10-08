@@ -25,6 +25,10 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
+ /* Use of Lazy final(non-constant final variable created with a type-specific default value)	
+* source : https://cr.openjdk.java.net/~jrose/draft/lazy-final.html#:~:text=The%20uninitialized%20default%20value%20(null,initialized%20shortly%20it%20is%20created.&text=In%20addition%2C%20the%20language%20does,final%20to%20be%20initialized%20twice. 
+*/
+
 public class CEGNodeImpl extends IModelNodeImpl implements CEGNode {
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -149,6 +153,8 @@ public class CEGNodeImpl extends IModelNodeImpl implements CEGNode {
 				return getVariable();
 			case RequirementsPackage.CEG_NODE__CONDITION:
 				return getCondition();
+			default:
+				break;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,6 +176,8 @@ public class CEGNodeImpl extends IModelNodeImpl implements CEGNode {
 			case RequirementsPackage.CEG_NODE__CONDITION:
 				setCondition((String)newValue);
 				return;
+			default:
+				break;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -191,6 +199,8 @@ public class CEGNodeImpl extends IModelNodeImpl implements CEGNode {
 			case RequirementsPackage.CEG_NODE__CONDITION:
 				setCondition(CONDITION_EDEFAULT);
 				return;
+			default:
+				break;
 		}
 		super.eUnset(featureID);
 	}
@@ -206,9 +216,13 @@ public class CEGNodeImpl extends IModelNodeImpl implements CEGNode {
 			case RequirementsPackage.CEG_NODE__TYPE:
 				return getType() != TYPE_EDEFAULT;
 			case RequirementsPackage.CEG_NODE__VARIABLE:
+				// VARIABLE_EDEFAULT is a compile time constant hence requires nullability check to verify change.	
 				return VARIABLE_EDEFAULT == null ? getVariable() != null : !VARIABLE_EDEFAULT.equals(getVariable());
 			case RequirementsPackage.CEG_NODE__CONDITION:
+				// CONDITION_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return CONDITION_EDEFAULT == null ? getCondition() != null : !CONDITION_EDEFAULT.equals(getCondition());
+			default:
+				break;
 		}
 		return super.eIsSet(featureID);
 	}

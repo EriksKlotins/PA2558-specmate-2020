@@ -79,9 +79,8 @@ public class CEGConnectionImpl extends IModelConnectionImpl implements CEGConnec
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case RequirementsPackage.CEG_CONNECTION__NEGATE:
-				return isNegate();
+		if(featureID == RequirementsPackage.CEG_CONNECTION__NEGATE){
+			return isNegate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -93,10 +92,10 @@ public class CEGConnectionImpl extends IModelConnectionImpl implements CEGConnec
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case RequirementsPackage.CEG_CONNECTION__NEGATE:
-				setNegate((Boolean)newValue);
-				return;
+		if(featureID == RequirementsPackage.CEG_CONNECTION__NEGATE)
+		{
+			setNegate((Boolean)newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -108,10 +107,9 @@ public class CEGConnectionImpl extends IModelConnectionImpl implements CEGConnec
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case RequirementsPackage.CEG_CONNECTION__NEGATE:
-				setNegate(NEGATE_EDEFAULT);
-				return;
+		if(featureID == RequirementsPackage.CEG_CONNECTION__NEGATE){
+			setNegate(NEGATE_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
