@@ -74,7 +74,7 @@ export class Login implements OnInit {
     public get isErrorLoggedOut(): boolean {
         return this.auth.errorLoggedOut;
     }
-    /* public loginKey(event: KeyboardEvent, shouldToggle?: boolean): void {
+    public loginKey(event: KeyboardEvent, shouldToggle?: boolean): void {
         if ([Key.ENTER].indexOf(event.keyCode) >= 0) {
             event.preventDefault();
             event.stopPropagation();
@@ -85,5 +85,5 @@ export class Login implements OnInit {
                 this.authenticate();
                 break;
         }
-    } */
+    }
 }
