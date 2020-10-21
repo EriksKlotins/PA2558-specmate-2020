@@ -30,6 +30,7 @@ export class CEGLayoutTool extends ToolBase {
     }
 
     public layoutGraph(): Promise<any> {
+       // console.log('Inside layoutGraph...');
         const nodeList = this.graph.getModel().getChildVertices(this.graph.getDefaultParent()).filter(n => !n.isEdge());
         let nodeOrdering = this.toposort(this.graph, nodeList);
         if (nodeOrdering.length == 0 && nodeList.length > 0) {
@@ -51,7 +52,7 @@ export class CEGLayoutTool extends ToolBase {
         const childCount: {[key: string]: number} = {};
         const phaseAWorkList: mxgraph.mxCell[] = [];
         const phaseBWorkList: mxgraph.mxCell[] = [];
-
+        console.log('Inside toposort...');
         // Find all Causes & Effects
         let maxPosition = 0;
         for (const node of nodeList) {
@@ -151,6 +152,7 @@ export class CEGLayoutTool extends ToolBase {
     }
 
     private getDimensions(nodeOrdering: mxgraph.mxCell[][]): Dimension[] {
+      //  console.log('Inside getDimensions...');
         let dimensions: Dimension[] = [];
         for (const layer of nodeOrdering) {
             let width = 0;
@@ -172,21 +174,32 @@ export class CEGLayoutTool extends ToolBase {
         let layerPositionY = Config.CEG_LAYOUT_CLEARANCE_Y;
         let gridSpace = Config.GRAPHICAL_EDITOR_GRID_SPACE;
         let maxHeight = Math.max(...dimTable.map(d => d.height));
+        let maxWidth = Math.max(...dimTable.map(d => d.width));
 
+        console.log('Inside CEG updateLayout...');
+        console.log('Auto layout happens vertically now...');
         for (let layerIndex = 0; layerIndex < dimTable.length; layerIndex++) {
             const layerNodes = nodeOrdering[layerIndex];
             const layerDimensions = dimTable[layerIndex];
             let dynamicYOffset = (maxHeight - layerDimensions.height) / (layerNodes.length + 1);
             let yOffset = dynamicYOffset - (dynamicYOffset % gridSpace);
+            //   let dynamicXOffset = (maxWidth - layerDimensions.width) / (layerNodes.length + 1);
+            //   let xOffset = dynamicXOffset - (dynamicXOffset % gridSpace);
             for (let nodeIndex = 0; nodeIndex < layerNodes.length; nodeIndex++) {
                 const node = layerNodes[nodeIndex];
                 let nodeClearanceX = 0.5 * (layerDimensions.width - node.getGeometry().width);
-                let nodeX = layerPositionX + nodeClearanceX;
-                let nodeY = layerPositionY + yOffset;
+                let nodeX = layerPositionX + nodeClearanceX ; // + xOffset;
+                // Increasing the offset by 1.5 times so that nodes do not overlap
+                let nodeY = layerPositionY + 1.5 * yOffset;
                 yOffset += node.getGeometry().height + Config.CEG_LAYOUT_CLEARANCE_Y + dynamicYOffset - (dynamicYOffset % gridSpace);
                 let geometry = node.getGeometry().clone() as mxgraph.mxGeometry;
-                geometry.x = nodeX;
-                geometry.y = nodeY;
+             //   geometry.x = nodeX;
+             //   geometry.y = nodeY;
+             //  debugger;
+             // Reversing the axis for vertical layout.
+                geometry.x = nodeY;
+                geometry.y = nodeX;
+
                 this.graph.getModel().setGeometry(node, geometry);
             }
             layerPositionX += Config.CEG_LAYOUT_CLEARANCE_X + layerDimensions.width;
