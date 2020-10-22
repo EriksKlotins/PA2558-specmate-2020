@@ -42,8 +42,8 @@
                     </span>
                 </div>
                 <div ngbDropdown class="d-inline-block input-group-append" #projectDropdown>
-                    <button class="btn btn-sm btn-outline-primary" id="login-project-dropdown" ngbDropdownToggle>
-                        {{project ? project : ('project' | translate)}}
+                    <button [(ngModel)]="testVal" class="btn btn-sm btn-outline-primary" id="login-project-dropdown" ngbDropdownToggle>
+                        {{project ? project : (testVal | translate)}}
                     </button>
                     <div ngbDropdownMenu aria-labelledby="projectDropdown">
                         <button *ngFor="let name of projectnames" id="project-{{name}}" class="dropdown-item" (click)="project = name">{{name}}</button>
