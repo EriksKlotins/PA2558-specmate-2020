@@ -10,10 +10,14 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
     styleUrls: ['login.component.css']
 })
 export class Login implements OnInit {
+    
+    
     public username = '';
     public password = '';
     public _project = '';
     public projectnames: string[];
+
+    public testVal:string='test-data';
 
     public isAuthenticating = false;
 
@@ -21,12 +25,23 @@ export class Login implements OnInit {
       auth.getProjectNames().then(res => this.projectnames = res);
     }
 
+    loadProjectName()
+    {
+        this.testVal=this.projectnames[0];
+    }
+
     public get project(): string {
         return this._project;
     }
 
     public set project(project: string) {
+        if(project==null)
+        {
+            this._project=this.testVal;
+        }
+        else{
         this._project = project;
+        }
     }
 
 
@@ -41,6 +56,7 @@ export class Login implements OnInit {
     }
 
     public async authenticate(): Promise<boolean> {
+        console.log("Entered--");
         if (!this.canLogin) {
             return Promise.resolve(false);
         }
