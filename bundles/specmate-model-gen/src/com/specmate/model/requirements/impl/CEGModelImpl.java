@@ -45,6 +45,10 @@ import org.eclipse.emf.internal.cdo.CDOObjectImpl;
  *
  * @generated
  */
+ /* Use of Lazy final(non-constant final variable created with a type-specific default value) 
+ * source : https://cr.openjdk.java.net/~jrose/draft/lazy-final.html#:~:text=The%20uninitialized%20default%20value%20(null,initialized%20shortly%20it%20is%20created.&text=In%20addition%2C%20the%20language%20does,final%20to%20be%20initialized%20twice. 
+ */
+
 public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -296,11 +300,13 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case RequirementsPackage.CEG_MODEL__TRACES_TO:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
-			case RequirementsPackage.CEG_MODEL__TRACES_FROM:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
+		if(featureID == RequirementsPackage.CEG_MODEL__TRACES_TO)
+		{
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesTo()).basicAdd(otherEnd, msgs);
+		}
+		else if(featureID == RequirementsPackage.CEG_MODEL__TRACES_FROM)
+		{
+			return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracesFrom()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -319,6 +325,8 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 				return ((InternalEList<?>)getTracesTo()).basicRemove(otherEnd, msgs);
 			case RequirementsPackage.CEG_MODEL__TRACES_FROM:
 				return ((InternalEList<?>)getTracesFrom()).basicRemove(otherEnd, msgs);
+			default: 
+				break;
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -349,6 +357,8 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 				return getTracesFrom();
 			case RequirementsPackage.CEG_MODEL__MODEL_REQUIREMENTS:
 				return getModelRequirements();
+			default:
+				break;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -392,6 +402,8 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 			case RequirementsPackage.CEG_MODEL__MODEL_REQUIREMENTS:
 				setModelRequirements((String)newValue);
 				return;
+			default:
+				break;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -431,6 +443,8 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 			case RequirementsPackage.CEG_MODEL__MODEL_REQUIREMENTS:
 				setModelRequirements(MODEL_REQUIREMENTS_EDEFAULT);
 				return;
+			default:
+				break;
 		}
 		super.eUnset(featureID);
 	}
@@ -444,10 +458,13 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case RequirementsPackage.CEG_MODEL__ID:
+			// ID_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return ID_EDEFAULT == null ? getId() != null : !ID_EDEFAULT.equals(getId());
 			case RequirementsPackage.CEG_MODEL__NAME:
+			//  NAME_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
 			case RequirementsPackage.CEG_MODEL__DESCRIPTION:
+			// DESCRIPTION_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
 			case RequirementsPackage.CEG_MODEL__RECYCLED:
 				return isRecycled() != RECYCLED_EDEFAULT;
@@ -460,7 +477,10 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 			case RequirementsPackage.CEG_MODEL__TRACES_FROM:
 				return !getTracesFrom().isEmpty();
 			case RequirementsPackage.CEG_MODEL__MODEL_REQUIREMENTS:
+			// MODEL_REQUIREMENTS_EDEFAULT is a compile time constant hence requires nullability check to verify change.
 				return MODEL_REQUIREMENTS_EDEFAULT == null ? getModelRequirements() != null : !MODEL_REQUIREMENTS_EDEFAULT.equals(getModelRequirements());
+			default:
+				break;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -472,16 +492,25 @@ public class CEGModelImpl extends CDOObjectImpl implements CEGModel {
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == INamed.class) {
-			switch (derivedFeatureID) {
-				case RequirementsPackage.CEG_MODEL__NAME: return BasePackage.INAMED__NAME;
-				default: return -1;
+		if (baseClass == INamed.class) 
+		{
+			if(derivedFeatureID == RequirementsPackage.CEG_MODEL__NAME)
+			{
+				return BasePackage.INAMED__NAME;
+			}
+			else
+			{
+				return -1;
 			}
 		}
-		if (baseClass == IDescribed.class) {
-			switch (derivedFeatureID) {
-				case RequirementsPackage.CEG_MODEL__DESCRIPTION: return BasePackage.IDESCRIBED__DESCRIPTION;
-				default: return -1;
+		if (baseClass == IDescribed.class) 
+		{
+			if(derivedFeatureID == RequirementsPackage.CEG_MODEL__DESCRIPTION)
+			{
+				return BasePackage.IDESCRIBED__DESCRIPTION;
+			}
+			else{
+				return -1;
 			}
 		}
 		if (baseClass == IRecycled.class) {
