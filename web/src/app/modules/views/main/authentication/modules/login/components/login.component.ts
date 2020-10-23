@@ -44,6 +44,8 @@ export class Login implements OnInit {
         if (!this.canLogin) {
             return Promise.resolve(false);
         }
+        if(this.canLogin)
+       {
         let user = new User();
         user.userName = this.username;
         user.passWord = this.password;
@@ -53,7 +55,8 @@ export class Login implements OnInit {
         this.tryNavigateAway();
         this.isAuthenticating = false;
         return Promise.resolve(this.auth.isAuthenticated);
-    }
+       }
+       }
 
     public get canLogin(): boolean {
         return this.isFilled(this.username) && this.isFilled(this.password) && this.isFilled(this.project);
