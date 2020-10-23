@@ -1,0 +1,18 @@
+
+// Bootstrap + Theme
+$web-font-path: "";
+@import "./assets/fonts/open_sans.css";
+@import "~bootswatch/dist/superhero/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/superhero/bootswatch";
+
+// Flag Icon
+$flag-icon-css-path: '~flag-icon-css/flags' !default;
+@import "~flag-icon-css/sass/flag-icon";
+
+// Dragula
+@import "~dragula/dist/dragula.css";
+
+// Custom
+@import "./assets/scss/specmate.extensions.scss";
+@import "./assets/scss/specmate.graph.extensions.scss";
