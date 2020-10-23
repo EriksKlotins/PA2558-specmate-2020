@@ -31,7 +31,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
+              { "input": "src/styles.scss", "inject": false, "bundleName": "light-theme" },
+              { "input": "src/dark.scss", "inject": false, "bundleName": "dark-theme" },
               "node_modules/font-awesome/scss/font-awesome.scss"
             ],
             "scripts": []
