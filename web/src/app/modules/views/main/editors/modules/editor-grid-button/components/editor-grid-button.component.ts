@@ -19,11 +19,13 @@ export class EditorGridButtonComponent {
   }
 
   public zoomIn(): void {
-    this.zoomFactor = this.zoomFactor * 1.1;
+    var zoomLimit: number = this.zoomFactor * 1.1;
+    this.zoomFactor = (zoomLimit <= 2) ? zoomLimit : this.zoomFactor;
   }
 
   public zoomOut(): void {
-    this.zoomFactor = this.zoomFactor / 1.1;
+    var zoomLimit: number = this.zoomFactor / 1.1;
+    this.zoomFactor = (zoomLimit >= 0.5) ? zoomLimit : this.zoomFactor;
   }
 
   public resetZoom(): void {
