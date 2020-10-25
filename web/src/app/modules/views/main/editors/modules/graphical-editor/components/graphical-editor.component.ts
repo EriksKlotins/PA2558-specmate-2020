@@ -593,13 +593,19 @@ export class GraphicalEditor {
     }
 
     public zoomIn(): void {
-        this.graph.zoomIn();
-        this.zoomFactor = this.zoomFactor * this.graph.zoomFactor;
+        var zoomLimit: number = this.zoomFactor * this.graph.zoomFactor;
+        if (zoomLimit <= 2) {
+            this.graph.zoomIn();
+            this.zoomFactor = zoomLimit;
+        }
     }
 
     public zoomOut(): void {
-        this.graph.zoomOut();
-        this.zoomFactor = this.zoomFactor / this.graph.zoomFactor;
+        var zoomLimit: number = this.zoomFactor / this.graph.zoomFactor;
+        if (zoomLimit >= 0.5) {
+            this.graph.zoomOut();
+            this.zoomFactor = zoomLimit;
+        }
     }
 
     public resetZoom(): void {
