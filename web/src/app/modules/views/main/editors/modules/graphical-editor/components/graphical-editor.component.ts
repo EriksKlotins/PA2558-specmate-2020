@@ -592,14 +592,38 @@ export class GraphicalEditor {
         return this.validationService.isValid(this.model);
     }
 
+    public zoomMax=3.0;
+    public zoomMin=0.7;
+
+
     public zoomIn(): void {
-        this.graph.zoomIn();
-        this.zoomFactor = this.zoomFactor * this.graph.zoomFactor;
+
+        this.zoomMax=this.zoomFactor * this.graph.zoomFactor;
+
+        if(this.zoomMax<=3)
+        {
+            this.graph.zoomIn();
+        }
+
+        this.zoomFactor=this.zoomMax<=3?this.zoomMax:this.zoomFactor;
+         
     }
 
     public zoomOut(): void {
-        this.graph.zoomOut();
-        this.zoomFactor = this.zoomFactor / this.graph.zoomFactor;
+       
+       
+        
+        this.zoomMin = this.zoomFactor / this.graph.zoomFactor;
+    
+        this.zoomMin=this.zoomFactor * this.graph.zoomFactor;
+
+        if(this.zoomMax>=0.7)
+        {
+            this.graph.zoomOut();
+        }
+
+        this.zoomFactor=this.zoomMin>=0.7?this.zoomMin:this.zoomFactor;
+    
     }
 
     public resetZoom(): void {
