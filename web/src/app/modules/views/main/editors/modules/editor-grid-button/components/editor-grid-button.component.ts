@@ -10,6 +10,9 @@ export class EditorGridButtonComponent {
   public isGridShown = true;
   public zoomFactor = 1.0;
 
+  public zoomMax=3.0;
+  public zoomMin=0.7
+
   public showGrid(): void {
     this.isGridShown = true;
   }
@@ -19,11 +22,22 @@ export class EditorGridButtonComponent {
   }
 
   public zoomIn(): void {
-    this.zoomFactor = this.zoomFactor * 1.1;
+    
+    this.zoomMax=this.zoomFactor*1.1;
+
+    if(this.zoomMax<=3)
+    {
+      this.zoomFactor=this.zoomMax;
+    }
   }
 
   public zoomOut(): void {
-    this.zoomFactor = this.zoomFactor / 1.1;
+    this.zoomMin = this.zoomFactor / 1.1;
+
+    if(this.zoomMin>=0.7)
+    {
+      this.zoomFactor=this.zoomMin;
+    }
   }
 
   public resetZoom(): void {
