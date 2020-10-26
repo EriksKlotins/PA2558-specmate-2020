@@ -11,7 +11,7 @@ export class EditorGridButtonComponent {
   public zoomFactor = 1.0;
 
   public zoomMax=3.0;
-  public zoomMin=0.7
+  public zoomMin=0.7;
 
   public showGrid(): void {
     this.isGridShown = true;
