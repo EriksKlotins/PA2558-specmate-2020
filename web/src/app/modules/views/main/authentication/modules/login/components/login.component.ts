@@ -17,7 +17,7 @@ export class Login implements OnInit {
     public _project = '';
     public projectnames: string[];
 
-    public testVal:string='test-data';
+    public defaultProjectName:string='test-data';
 
     public isAuthenticating = false;
 
@@ -27,7 +27,7 @@ export class Login implements OnInit {
 
     loadProjectName()
     {
-        this.testVal=this.projectnames[0];
+        this.defaultProjectName=this.projectnames[0];
     }
 
     public get project(): string {
@@ -37,7 +37,7 @@ export class Login implements OnInit {
     public set project(project: string) {
         if(project==null)
         {
-            this._project=this.testVal;
+            this._project=this.defaultProjectName;
         }
         else{
         this._project = project;
@@ -56,7 +56,6 @@ export class Login implements OnInit {
     }
 
     public async authenticate(): Promise<boolean> {
-        console.log("Entered--");
         if (!this.canLogin) {
             return Promise.resolve(false);
         }
