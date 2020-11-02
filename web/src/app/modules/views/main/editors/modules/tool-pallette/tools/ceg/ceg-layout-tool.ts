@@ -30,7 +30,7 @@ export class CEGLayoutTool extends ToolBase {
     }
 
     public layoutGraph(): Promise<any> {
-       // console.log('Inside layoutGraph...');
+      
         const nodeList = this.graph.getModel().getChildVertices(this.graph.getDefaultParent()).filter(n => !n.isEdge());
         let nodeOrdering = this.toposort(this.graph, nodeList);
         if (nodeOrdering.length == 0 && nodeList.length > 0) {
@@ -52,7 +52,7 @@ export class CEGLayoutTool extends ToolBase {
         const childCount: {[key: string]: number} = {};
         const phaseAWorkList: mxgraph.mxCell[] = [];
         const phaseBWorkList: mxgraph.mxCell[] = [];
-        console.log('Inside toposort...');
+     
         // Find all Causes & Effects
         let maxPosition = 0;
         for (const node of nodeList) {
@@ -152,7 +152,7 @@ export class CEGLayoutTool extends ToolBase {
     }
 
     private getDimensions(nodeOrdering: mxgraph.mxCell[][]): Dimension[] {
-      //  console.log('Inside getDimensions...');
+      
         let dimensions: Dimension[] = [];
         for (const layer of nodeOrdering) {
             let width = 0;
@@ -176,9 +176,7 @@ export class CEGLayoutTool extends ToolBase {
         let maxHeight = Math.max(...dimTable.map(d => d.height));
         let maxWidth = Math.max(...dimTable.map(d => d.width));
 
-        console.log('Inside CEG updateLayout...');
-        console.log('Auto layout happens vertically now...');
-        for (let layerIndex = 0; layerIndex < dimTable.length; layerIndex++) {
+           for (let layerIndex = 0; layerIndex < dimTable.length; layerIndex++) {
             const layerNodes = nodeOrdering[layerIndex];
             const layerDimensions = dimTable[layerIndex];
             let dynamicYOffset = (maxHeight - layerDimensions.height) / (layerNodes.length + 1);
@@ -195,7 +193,6 @@ export class CEGLayoutTool extends ToolBase {
                 let geometry = node.getGeometry().clone() as mxgraph.mxGeometry;
              //   geometry.x = nodeX;
              //   geometry.y = nodeY;
-             //  debugger;
              // Reversing the axis for vertical layout.
                 geometry.x = nodeY;
                 geometry.y = nodeX;
