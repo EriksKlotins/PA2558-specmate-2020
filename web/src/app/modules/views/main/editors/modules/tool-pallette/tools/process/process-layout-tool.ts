@@ -25,7 +25,9 @@ export class ProcessLayoutTool extends ToolBase {
         if (this.graph === undefined) {
             return;
         }
-        const treeLayout = new mx.mxCompactTreeLayout(this.graph, true, false);
+       // const treeLayout = new mx.mxCompactTreeLayout(this.graph, true, false);
+       // Setting  horizontal to false in mxCompactTreeLayout() for vertical auto layout.
+        const treeLayout = new mx.mxCompactTreeLayout(this.graph, false, false);
         treeLayout['moveTree'] = true;
         treeLayout['groupPadding'] = 30;
         treeLayout['edgeRouting'] = false;
