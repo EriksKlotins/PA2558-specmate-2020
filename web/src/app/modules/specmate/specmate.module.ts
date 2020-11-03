@@ -25,6 +25,10 @@ import { SelectedElementModule } from '../views/side/modules/selected-element/se
 import { TracingLinksModule } from '../views/side/modules/tracing-links/tracing-links.module';
 import { SpecmateComponent } from './components/specmate.component';
 import { SpecmateRoutingModule } from './routing/specmate-routing.module';
+import { DOCUMENT } from '@angular/common';
+import { Inject } from '@angular/core';
+
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -70,11 +74,46 @@ export function HttpLoaderFactory(http: HttpClient) {
     // THE COMPONENTS VISIBLE TO THE OUTSIDE
   ],
   providers: [
-    // SERVICES
+    { provide: Window, useValue: window }
   ],
   bootstrap: [
     // COMPONENTS THAT ARE BOOTSTRAPPED HERE
     SpecmateComponent
   ]
 })
-export class SpecmateModule { }
+export class SpecmateModule {
+  head: HTMLElement;
+  styleSheet: HTMLLinkElement;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.head = this.document.getElementsByTagName('head')[0];
+    this.styleSheet = this.document.createElement('link');
+    this.head.appendChild(this.styleSheet);
+    
+    this.loadStylesheet();
+  }
+
+  loadStylesheet() {
+    this.styleSheet.id = this.styleSheetId();
+    this.styleSheet.href = this.styleSheetHref();
+    this.styleSheet.rel = 'stylesheet';
+  }
+
+  styleSheetId() {
+    return `${this.theme()}-theme`;
+  }
+
+  styleSheetHref() {
+    return `${this.theme()}-theme.css`;
+  }
+
+  theme() {
+    const theme = window.localStorage.getItem("theme");
+    if (theme && theme == "dark") {
+      return "dark";
+    }
+    else {
+      return "light";
+    }
+  }
+}

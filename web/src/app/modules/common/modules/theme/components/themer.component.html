@@ -1,0 +1,4 @@
+<div>
+    <button *ngIf="theme == 'light'" class="btn btn-primary" (click)="selectDarkTheme()">{{ "DarkTheme" | translate }}</button>
+    <button *ngIf="theme == 'dark'" class="btn btn-light" (click)="selectLightTheme()">{{ "LightTheme" | translate }}</button>
+</div>

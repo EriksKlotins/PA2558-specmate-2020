@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonControlsModule } from '../../../actions/modules/common-controls/common-controls.module';
 import { I18NModule } from '../../../common/modules/i18n/i18n.module';
+import { ThemeModule } from '../../../common/modules/theme/theme.module';
 import { OperationMonitorModule } from '../../../notification/modules/operation-monitor/operation-monitor.module';
 import { SpecmateSharedModule } from '../../../specmate/specmate.shared.module';
 import { LogoutModule } from '../../../views/main/authentication/modules/logout/logout.module';
@@ -13,6 +14,7 @@ import { BrowserVersionCheckerModule } from 'src/app/modules/actions/modules/bro
     CommonControlsModule,
     OperationMonitorModule,
     I18NModule,
+    ThemeModule,
     SpecmateSharedModule,
     LogoutModule,
     BrowserVersionCheckerModule

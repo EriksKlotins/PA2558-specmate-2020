@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { I18NModule } from '../../../../../common/modules/i18n/i18n.module';
+import { ThemeModule } from '../../../../../common/modules/theme/theme.module';
 import { SpecmateSharedModule } from '../../../../../specmate/specmate.shared.module';
 import { AuthModule } from '../auth/auth.module';
 import { Login } from './components/login.component';
@@ -11,6 +12,7 @@ import { Login } from './components/login.component';
   imports: [
     // MODULE IMPORTS
     I18NModule,
+    ThemeModule,
     CommonModule,
     FormsModule,
     AuthModule,
