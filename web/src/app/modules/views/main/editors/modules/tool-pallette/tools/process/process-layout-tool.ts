@@ -25,8 +25,6 @@ export class ProcessLayoutTool extends ToolBase {
         if (this.graph === undefined) {
             return;
         }
-        console.log('Inside Process layoutGraph()');
-       // debugger;
        // const treeLayout = new mx.mxCompactTreeLayout(this.graph, true, false);
        // Setting  horizontal to false in mxCompactTreeLayout() for vertical auto layout.
         const treeLayout = new mx.mxCompactTreeLayout(this.graph, false, false);
