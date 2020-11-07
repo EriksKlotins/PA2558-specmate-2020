@@ -12,8 +12,7 @@ class Dimension {
     constructor(public width: number, public height: number) {}
 }
 
-
-export class CEGLayoutTool extends ToolBase {
+export class CEGLayoutTool2 extends ToolBase {
     public isVertexTool: boolean = undefined;
     public color = 'primary';
     public icon = 'sitemap';
@@ -77,7 +76,7 @@ export class CEGLayoutTool extends ToolBase {
 
         }
 
-        // Phase A: Iterate Back to Front to find the rightmost position
+        // Phase A: Iterate Back to Front to find the lowest position
         // each node can be
         while (phaseAWorkList.length > 0) {
             let current = phaseAWorkList.pop();
@@ -102,7 +101,7 @@ export class CEGLayoutTool extends ToolBase {
             }
         }
 
-        // Phase B: Iterate Front to Back to find the leftmost position each node can be in
+        // Phase B: Iterate Front to Back to find the highest position each node can be in
         while (phaseBWorkList.length > 0) {
             let current = phaseBWorkList.pop();
             if (current.edges === undefined || current.edges === null) {
@@ -157,12 +156,12 @@ export class CEGLayoutTool extends ToolBase {
             let width = 0;
             let height = 0;
             for (const cell of layer) {
-                if (cell.geometry.width > width) {
-                    width = cell.getGeometry().width;
+                if (cell.geometry.height > height) {
+                    height = cell.getGeometry().height;
                 }
-                height += cell.getGeometry().height;
+                width += cell.getGeometry().width;
             }
-            height += (layer.length - 1) * Config.CEG_LAYOUT_CLEARANCE_Y;
+            width += (layer.length - 1) * Config.CEG_LAYOUT_CLEARANCE_X;
             dimensions.push(new Dimension(width, height));
         }
         return dimensions;
@@ -172,25 +171,25 @@ export class CEGLayoutTool extends ToolBase {
         let layerPositionX = Config.CEG_LAYOUT_CLEARANCE_X;
         let layerPositionY = Config.CEG_LAYOUT_CLEARANCE_Y;
         let gridSpace = Config.GRAPHICAL_EDITOR_GRID_SPACE;
-        let maxHeight = Math.max(...dimTable.map(d => d.height));
+        let maxWidth = Math.max(...dimTable.map(d => d.width));
 
         for (let layerIndex = 0; layerIndex < dimTable.length; layerIndex++) {
             const layerNodes = nodeOrdering[layerIndex];
             const layerDimensions = dimTable[layerIndex];
-            let dynamicYOffset = (maxHeight - layerDimensions.height) / (layerNodes.length + 1);
-            let yOffset = dynamicYOffset - (dynamicYOffset % gridSpace);
+            let dynamicXOffset = (maxWidth - layerDimensions.width) / (layerNodes.length + 1);
+            let xOffset = dynamicXOffset - (dynamicXOffset % gridSpace);
             for (let nodeIndex = 0; nodeIndex < layerNodes.length; nodeIndex++) {
                 const node = layerNodes[nodeIndex];
-                let nodeClearanceX = 0.5 * (layerDimensions.width - node.getGeometry().width);
-                let nodeX = layerPositionX + nodeClearanceX;
-                let nodeY = layerPositionY + yOffset;
-                yOffset += node.getGeometry().height + Config.CEG_LAYOUT_CLEARANCE_Y + dynamicYOffset - (dynamicYOffset % gridSpace);
+                let nodeClearanceY = 0.5 * (layerDimensions.height - node.getGeometry().height);
+                let nodeY = layerPositionY + nodeClearanceY;
+                let nodeX = layerPositionX + xOffset;
+                xOffset += node.getGeometry().height + Config.CEG_LAYOUT_CLEARANCE_Y + dynamicXOffset - (dynamicXOffset % gridSpace);
                 let geometry = node.getGeometry().clone() as mxgraph.mxGeometry;
                 geometry.x = nodeX;
                 geometry.y = nodeY;
                 this.graph.getModel().setGeometry(node, geometry);
             }
-            layerPositionX += Config.CEG_LAYOUT_CLEARANCE_X + layerDimensions.width;
+            layerPositionX += Config.CEG_LAYOUT_CLEARANCE_X + layerDimensions.height;
         }
     }
 }
