@@ -12,6 +12,7 @@ class Dimension {
     constructor(public width: number, public height: number) {}
 }
 
+
 export class CEGLayoutTool extends ToolBase {
     public isVertexTool: boolean = undefined;
     public color = 'primary';
