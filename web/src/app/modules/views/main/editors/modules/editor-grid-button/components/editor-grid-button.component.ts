@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 export class EditorGridButtonComponent {
   public isGridShown = true;
   public zoomFactor = 1.0;
+  public zoomMin = 0.5;
+  public zoomMax = 5.0;
 
   public showGrid(): void {
     this.isGridShown = true;
@@ -19,11 +21,21 @@ export class EditorGridButtonComponent {
   }
 
   public zoomIn(): void {
-    this.zoomFactor = this.zoomFactor * 1.1;
+    let newZoomFactor = this.zoomFactor * 1.1;
+    if (newZoomFactor < this.zoomMax) {
+      this.zoomFactor = newZoomFactor;
+    } else {
+      this.zoomFactor = this.zoomMax;
+    }
   }
 
   public zoomOut(): void {
-    this.zoomFactor = this.zoomFactor / 1.1;
+    let newZoomFactor = this.zoomFactor / 1.1;
+    if (newZoomFactor > this.zoomMin) {
+      this.zoomFactor = newZoomFactor;
+    } else {
+      this.zoomFactor = this.zoomMin;
+    }
   }
 
   public resetZoom(): void {
