@@ -1,7 +1,7 @@
 *.class
 *.lock
 *.bin
-.project
+# .project
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
