@@ -66,6 +66,8 @@ export class GraphicalEditor {
     private _model: CEGModel | Process;
     private _contents: IContainer[];
     private zoomFactor = 1.0;
+    private zoomMin = 0.5;
+    private zoomMax = 5.0;
 
     private graphMouseMove: (evt: any) => void;
 
@@ -593,13 +595,23 @@ export class GraphicalEditor {
     }
 
     public zoomIn(): void {
-        this.graph.zoomIn();
-        this.zoomFactor = this.zoomFactor * this.graph.zoomFactor;
+        let newZoomFactor = this.zoomFactor * this.graph.zoomFactor;
+        if (newZoomFactor > this.zoomMax) {
+            this.zoomFactor = this.zoomMax;
+        } else {
+            this.graph.zoomIn();
+            this.zoomFactor = newZoomFactor;
+        }
     }
 
     public zoomOut(): void {
-        this.graph.zoomOut();
-        this.zoomFactor = this.zoomFactor / this.graph.zoomFactor;
+        let newZoomFactor = this.zoomFactor / this.graph.zoomFactor;
+        if (newZoomFactor < this.zoomMin) {
+            this.zoomFactor = this.zoomMin;
+        } else {
+            this.graph.zoomOut();
+            this.zoomFactor = newZoomFactor;
+        }
     }
 
     public resetZoom(): void {
