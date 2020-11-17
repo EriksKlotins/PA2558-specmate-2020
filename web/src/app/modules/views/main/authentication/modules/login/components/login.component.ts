@@ -18,7 +18,7 @@ export class Login implements OnInit {
     public isAuthenticating = false;
 
     constructor(private auth: AuthenticationService, private navigator: NavigatorService) {
-      auth.getProjectNames().then(res => this.projectnames = res);
+        auth.getProjectNames().then(res => this.projectnames = res);
     }
 
     public get project(): string {
@@ -44,15 +44,17 @@ export class Login implements OnInit {
         if (!this.canLogin) {
             return Promise.resolve(false);
         }
-        let user = new User();
-        user.userName = this.username;
-        user.passWord = this.password;
-        user.projectName = this.project;
-        this.isAuthenticating = true;
-        await this.auth.authenticate(user);
-        this.tryNavigateAway();
-        this.isAuthenticating = false;
-        return Promise.resolve(this.auth.isAuthenticated);
+        if (this.canLogin) {
+            let user = new User();
+            user.userName = this.username;
+            user.passWord = this.password;
+            user.projectName = this.project;
+            this.isAuthenticating = true;
+            await this.auth.authenticate(user);
+            this.tryNavigateAway();
+            this.isAuthenticating = false;
+            return Promise.resolve(this.auth.isAuthenticated);
+        }
     }
 
     public get canLogin(): boolean {
@@ -60,7 +62,7 @@ export class Login implements OnInit {
     }
 
     private isFilled(str: string): boolean {
-        return str !== undefined && str !== null && str.length > 0 &&  str !== '';
+        return str !== undefined && str !== null && str.length > 0 && str !== '';
     }
 
     public get isLoginFailed(): boolean {
