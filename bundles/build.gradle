@@ -81,4 +81,16 @@ tasks.register('buildscriptDependencies') {
     println "bnd_repourl: ${bnd_repourl}"
     println buildscript.configurations.classpath.asPath
   }
+  
+}
+plugins {
+  id "org.sonarqube" version "3.0"
+}
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", "Specmate"
+    property "sonar.organization", "qamaramanat"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
 }
